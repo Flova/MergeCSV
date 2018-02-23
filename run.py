@@ -1,5 +1,4 @@
 import csv
-# import pprint
 import operator
 import sys
 import datetime
@@ -19,6 +18,7 @@ def read_csv(path):
     print("----- Finished reading " + path + " -----\n")
     return (data, headers)
 
+
 def merge_csv(file_path):
     data = set()
     headers = []
@@ -28,14 +28,16 @@ def merge_csv(file_path):
     raw_list = []
     for data_set in data:
         raw_list.append(json.loads(data_set))
-    return (raw_list, headers)
+    return raw_list, headers
+
 
 def sort(list):
     return sorted(list, key=lambda k: datetime.datetime.strptime(k['Buchungstag'], '%d.%m.%Y'))
 
+
 def run():
     root = tk.Tk()
-    #file_path = ["foo1.csv","foo.csv"]
+    # file_path = ["foo1.csv","foo.csv"]
     files = filedialog.askopenfilenames(parent=root,title='Choose a file')
     file_path = root.tk.splitlist(files)
     # Main Function
@@ -43,14 +45,15 @@ def run():
     # Sort by Date
     output_list = sort(raw_list)
     output_path = filedialog.asksaveasfilename(parent=root,title='Save the File')
-    #output_path = "csv1lol.csv"
+    # output_path = "csv1lol.csv"
     out_file  = open(output_path, "w")
     writer = csv.DictWriter(out_file, fieldnames=headers, delimiter=';')
     writer.writeheader()
     for row in output_list:
         writer.writerow(row)
-    #pprint.pprint(output_list)
+    # pprint.pprint(output_list)
     print("Datasets in final Dokument: " + str(len(output_list)))
+
 
 if __name__ == '__main__':
     run()
