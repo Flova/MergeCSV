@@ -1,6 +1,4 @@
 import csv
-import operator
-import sys
 import datetime
 import tkinter as tk
 import json
@@ -16,7 +14,7 @@ def read_csv(path):
     for row in content:
         data.add(json.dumps(row))
     print("----- Finished reading " + path + " -----\n")
-    return (data, headers)
+    return data, headers
 
 
 def merge_csv(file_path):
