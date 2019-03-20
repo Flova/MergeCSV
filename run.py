@@ -9,10 +9,14 @@ def read_csv(path):
     print("----- Start reading " + path + " -----")
     data = set()
     raw = open(path, 'r', encoding = 'ISO 8859-1')
+    if input("Neue Version? (y/n):") == "y":
+        for i in range(12):
+            raw.readline()
     content = csv.DictReader(raw, delimiter=';')
     headers = content.fieldnames
     for row in content:
-        data.add(json.dumps(row))
+        if row['Kundenreferenz'] not in ["Anfangssaldo","Endsaldo"]:
+            data.add(json.dumps(row))
     print("----- Finished reading " + path + " -----\n")
     return data, headers
 
